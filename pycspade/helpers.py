@@ -183,6 +183,27 @@ def print_result(result):
             lift,
             '->'.join(list(map(str, mined_object.items))))))
 
+def get_pandas(result):
+    # return a Pandas DataFrame with results as for print_results
+    nseqs = result['nsequences']
+    columns = ['Sequence','Occurs', 'Accum', 'Support', 'Confid', 'Lift']
+    list_results=[]
+    for mined_object in result['mined_objects']:
+        conf = None
+        lift = None
+        if mined_object.confidence:
+            conf = '{:0.7f}'.format(mined_object.confidence)
+        if mined_object.lift:
+            lift = '{:0.7f}'.format(mined_object.lift)
+
+        list_results.append([mined_object.items,
+            mined_object.noccurs,
+            mined_object.accum_occurs,
+            mined_object.noccurs / nseqs,
+            conf,
+            lift])
+    return pd.DataFrame(list_results,columns=columns)
+
 
 def decode_result(result):
     result['seqstrm'] = result['seqstrm'].strip().decode('latin-1')
