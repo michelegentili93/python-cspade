@@ -151,8 +151,9 @@ def spade(filename=None, data=None, support=0.1, maxsize=None, maxlen=None, ming
                 f.write('\n')
 
     try:
-        result = c_runspade(filename, support, maxsize, maxlen, mingap, maxgap, memsize, numpart, maxwin, bfstype,
-                            tid_lists)
+        result = c_runspade(filename=filename, support=support, maxsize=maxsize, maxlen=maxlen, mingap=mingap, maxgap=maxgap, memsize=memsize, numpart=numpart,
+               maxwin=maxwin, bfstype=bfstype, tid_lists=tid_lists)
+            
         decode_result(result)
         if parse:
             parse_results(result)
